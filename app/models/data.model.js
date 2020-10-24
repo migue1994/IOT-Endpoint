@@ -7,7 +7,8 @@ module.exports = mongoose => {
                 airQuality: String,
                 waterLevel: String,
                 weight: String,
-                waterFlow: String,
+                isNearTheMeal: Boolean,
+                noise: String
             },
             {timeStamps: true}
         )
