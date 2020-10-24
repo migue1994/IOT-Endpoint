@@ -3,6 +3,7 @@ module.exports = mongoose => {
         "data",
         mongoose.Schema(
             {
+                username: String,
                 temperature: String,
                 airQuality: String,
                 waterLevel: String,
