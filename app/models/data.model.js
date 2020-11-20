@@ -4,12 +4,12 @@ module.exports = mongoose => {
         mongoose.Schema(
             {
                 username: String,
-                temperature: String,
-                airQuality: String,
-                waterLevel: String,
-                weight: String,
-                isNearTheMeal: Boolean,
-                noise: String
+                temperature: Object,
+                airQuality: Object,
+                waterLevel: Object,
+                weight: Object,
+                isNearTheMeal: Object,
+                noise: Object
             },
             {timeStamps: true}
         )
