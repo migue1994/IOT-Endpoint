@@ -24,11 +24,18 @@ exports.findAll = (req, res) => {
         })
 }
 
-exports.findLastTenTemperatures = (req, res) => {
+exports.getTemperatureChart = (req, res) => {
     let temperatures = [];
     Data.find()
         .then(data => data.map(log => log.temperature ? temperatures.push(log.temperature): undefined))
-        .then(() => res.send(temperatures.slice(temperatures.length-10, temperatures.length)))
+        .then(() => {
+            const fitArray = temperatures.slice(temperatures.length-10, temperatures.length)
+            const dts = [];
+            fitArray.map((t, index) => {
+                dts.push({value:[index, t.temperature]})
+            })
+            res.send(dts)
+        })
         .catch(err => {
             res.status(400).send({
                 message: err.message || 'Not Found'
@@ -36,11 +43,18 @@ exports.findLastTenTemperatures = (req, res) => {
         })
 }
 
-exports.findLastTenAirQualities = (req, res) => {
+exports.getAirChart = (req, res) => {
     let airQualities = [];
     Data.find()
         .then(data => data.map(log => log.airQuality ? airQualities.push(log.airQuality): undefined))
-        .then(() => res.send(airQualities.slice(airQualities.length-10, airQualities.length)))
+        .then(() => {
+            const fitArray = airQualities.slice(airQualities.length-10, airQualities.length)
+            const dts = [];
+            fitArray.map((t, index) => {
+                dts.push({value:[index, t.analog]})
+            })
+            res.send(dts)
+        })
         .catch(err => {
             res.status(400).send({
                 message: err.message || 'Not Found'
@@ -48,11 +62,18 @@ exports.findLastTenAirQualities = (req, res) => {
         })
 }
 
-exports.findLastTenNoises = (req, res) => {
+exports.getNoiseChart = (req, res) => {
     let noises = [];
     Data.find()
         .then(data => data.map(log => log.noise ? noises.push(log.noise): undefined))
-        .then(() => res.send(noises.slice(noises.length-10, noises.length)))
+        .then(() => {
+            const fitArray = noises.slice(noises.length-10, noises.length)
+            const dts = [];
+            fitArray.map((t, index) => {
+                dts.push({value:[index, t.analog]})
+            })
+            res.send(dts)
+        })
         .catch(err => {
             res.status(400).send({
                 message: err.message || 'Not Found'
@@ -64,7 +85,43 @@ exports.findLastTenIsNearTheMeal = (req, res) => {
     let nearTheMeal = [];
     Data.find()
         .then(data => data.map(log => log.isNearTheMeal ? nearTheMeal.push(log.isNearTheMeal): undefined))
-        .then(() => res.send(nearTheMeal.slice(nearTheMeal.length-10, nearTheMeal.length)))
+        .then(() => res.send(nearTheMeal.slice(nearTheMeal.length-5, nearTheMeal.length)))
+        .catch(err => {
+            res.status(400).send({
+                message: err.message || 'Not Found'
+            })
+        })
+}
+
+exports.findLastTenTemperatures = (req, res) => {
+    let temperatures = [];
+    Data.find()
+        .then(data => data.map(log => log.temperature ? temperatures.push(log.temperature): undefined))
+        .then(() => res.send(temperatures.slice(temperatures.length-5, temperatures.length)))
+        .catch(err => {
+            res.status(400).send({
+                message: err.message || 'Not Found'
+            })
+        })
+}
+
+exports.findLastTenAirQualities = (req, res) => {
+    let airQualities = [];
+    Data.find()
+        .then(data => data.map(log => log.airQuality ? airQualities.push(log.airQuality): undefined))
+        .then(() => res.send(airQualities.slice(airQualities.length-5, airQualities.length)))
+        .catch(err => {
+            res.status(400).send({
+                message: err.message || 'Not Found'
+            })
+        })
+}
+
+exports.findLastTenNoises = (req, res) => {
+    let noises = [];
+    Data.find()
+        .then(data => data.map(log => log.noise ? noises.push(log.noise): undefined))
+        .then(() => res.send(noises.slice(noises.length-5, noises.length)))
         .catch(err => {
             res.status(400).send({
                 message: err.message || 'Not Found'
